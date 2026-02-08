@@ -219,7 +219,7 @@
                 break;
             case 'reset':
                 cleanup();
-                showError('체험이 종료되었습니다', 'QR 코드를 다시 스캔하면 새로운 체험을 시작할 수 있습니다.');
+                showScreen('screen-timeout');
                 break;
         }
     }
