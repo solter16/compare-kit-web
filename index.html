@@ -30,12 +30,12 @@
             justify-content: center;
             padding: 24px;
             text-align: center;
+            background: #000 url('assets/web_background.png') center/cover no-repeat;
         }
         .screen.active { display: flex; }
 
         /* ── 로딩 화면 ── */
         #screen-loading {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
         .spinner {
             width: 48px; height: 48px;
@@ -50,7 +50,6 @@
 
         /* ── 에러 화면 (토큰 만료 등) ── */
         #screen-error {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
         }
         .error-icon { font-size: 64px; margin-bottom: 16px; }
         .error-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; }
@@ -58,7 +57,6 @@
 
         /* ── 연결됨 / 안내 화면 ── */
         #screen-connected {
-            background: #000;
         }
         .connected-message {
             font-size: 1.3rem;
@@ -70,10 +68,8 @@
 
         /* ── 세션 종료 화면 ── */
         #screen-revoked {
-            background: linear-gradient(135deg, #a8a8a8 0%, #636363 100%);
         }
         #screen-timeout {
-            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
         }
 
         /* ── 타임아웃 바 ── */
