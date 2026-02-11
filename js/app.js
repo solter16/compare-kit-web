@@ -228,6 +228,7 @@
     function onSessionRevoked(payload) {
         debugLog(`세션 강제 종료: ${payload.reason}`);
         cleanup();
+        sessionStorage.setItem('ck_ended', '1');
         showScreen('screen-revoked');
     }
 
@@ -240,6 +241,7 @@
                 break;
             case 'reset':
                 cleanup();
+                sessionStorage.setItem('ck_ended', '1');
                 showScreen('screen-timeout');
                 break;
         }
@@ -358,6 +360,13 @@
     // ── 초기화 ──
     async function init() {
         debugLog('Compare Kit 초기화...');
+
+        // 0. 이전 세션 종료 상태 확인 (새로고침 방지)
+        if (sessionStorage.getItem('ck_ended')) {
+            sessionStorage.removeItem('ck_ended');
+            showScreen('screen-timeout');
+            return;
+        }
 
         // 1. URL 파라미터 파싱
         parseParams();
