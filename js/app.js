@@ -118,6 +118,13 @@
             debugLog('MQTT 연결 성공');
             state.connected = true;
 
+            // 키오스크에 스캔 감지 즉시 알림 (QR 숨김)
+            state.mqttClient.publish(topic('device/scanning'), JSON.stringify({
+                token: state.token,
+                sessionId: state.sessionId,
+            }));
+            debugLog('device/scanning 전송');
+
             // 구독: MAUI → 웹 메시지
             state.mqttClient.subscribe([
                 topic('session/accepted'),
