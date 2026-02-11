@@ -5,10 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Compare Kit</title>
     <style>
+        @font-face {
+            font-family: 'SamsungSSBodyKR';
+            src: url('assets/SamsungSSBodyKR-Regular.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'SamsungSSBodyKR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: #000;
             min-height: 100vh;
             min-height: 100dvh;
@@ -127,6 +134,8 @@
     <!-- 3. 연결됨 / 안내 화면 -->
     <div class="screen" id="screen-connected">
         <img class="connected-guide-img" src="assets/web_guide.png" alt="가이드" />
+        <div class="connected-message">본인의 휴대폰을
+센서 위에 올려보세요</div>
     </div>
 
     <!-- 4. 세션 만료 (다른 사용자) -->
