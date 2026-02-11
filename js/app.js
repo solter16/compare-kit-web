@@ -93,10 +93,25 @@
     function connectMqtt() {
         debugLog('MQTT 연결 시도...');
 
+        state.sessionId = generateSessionId();
         const clientId = `web_${state.boothId}_${Date.now().toString(36)}`;
+
+        // LWT: 브라우저가 갑자기 닫혀도 브로커가 자동으로 disconnect 전송
+        const willPayload = JSON.stringify({
+            sessionId: state.sessionId,
+            timestamp: new Date().toISOString(),
+            reason: 'lwt',
+        });
+
         state.mqttClient = mqtt.connect(CONFIG.mqtt.brokerUrl, {
             ...CONFIG.mqtt.options,
             clientId: clientId,
+            will: {
+                topic: topic('device/disconnect'),
+                payload: willPayload,
+                qos: 1,
+                retain: false,
+            },
         });
 
         state.mqttClient.on('connect', () => {
@@ -146,7 +161,6 @@
 
     // ── 기기 연결 메시지 전송 ──
     function sendDeviceConnect() {
-        state.sessionId = generateSessionId();
         const payload = {
             token: state.token,
             sessionId: state.sessionId,
