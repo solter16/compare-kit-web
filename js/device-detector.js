@@ -272,7 +272,7 @@ function detectAndroidModel(ua) {
             return { name: productName, code: fullCode };
         }
         // SM- 패턴이지만 정규식에 안 맞는 경우 rawModelCode 그대로 사용
-        return { name: `Samsung (${rawModelCode})`, code: rawModelCode };
+        return { name: 'Samsung Galaxy', code: rawModelCode };
     }
 
     // 삼성 갤럭시 (다른 패턴 - Samsung, Galaxy 키워드)
@@ -925,46 +925,46 @@ function getSamsungModelName(code) {
     }
 
     // 시리즈 추론 (매칭되지 않은 경우)
-    if (code.startsWith('S93')) return `Samsung Galaxy S25 시리즈 (SM-${code})`;
-    if (code.startsWith('S92')) return `Samsung Galaxy S24 시리즈 (SM-${code})`;
-    if (code.startsWith('S91')) return `Samsung Galaxy S23 시리즈 (SM-${code})`;
-    if (code.startsWith('S90')) return `Samsung Galaxy S22 시리즈 (SM-${code})`;
-    if (code.startsWith('S7')) return `Samsung Galaxy S FE 시리즈 (SM-${code})`;
-    if (code.startsWith('G99')) return `Samsung Galaxy S21 시리즈 (SM-${code})`;
-    if (code.startsWith('G98')) return `Samsung Galaxy S20 시리즈 (SM-${code})`;
-    if (code.startsWith('G97')) return `Samsung Galaxy S10 시리즈 (SM-${code})`;
-    if (code.startsWith('G96')) return `Samsung Galaxy S9 시리즈 (SM-${code})`;
-    if (code.startsWith('G95')) return `Samsung Galaxy S8 시리즈 (SM-${code})`;
-    if (code.startsWith('G93')) return `Samsung Galaxy S7 시리즈 (SM-${code})`;
-    if (code.startsWith('G92')) return `Samsung Galaxy S6 시리즈 (SM-${code})`;
-    if (code.startsWith('F9')) return `Samsung Galaxy Z Fold (SM-${code})`;
-    if (code.startsWith('F7')) return `Samsung Galaxy Z Flip (SM-${code})`;
-    if (code.startsWith('A5')) return `Samsung Galaxy A5x (SM-${code})`;
-    if (code.startsWith('A3')) return `Samsung Galaxy A3x (SM-${code})`;
-    if (code.startsWith('A2')) return `Samsung Galaxy A2x (SM-${code})`;
-    if (code.startsWith('A1')) return `Samsung Galaxy A1x (SM-${code})`;
-    if (code.startsWith('A0')) return `Samsung Galaxy A0x (SM-${code})`;
-    if (code.startsWith('A7')) return `Samsung Galaxy A7x (SM-${code})`;
-    if (code.startsWith('A')) return `Samsung Galaxy A 시리즈 (SM-${code})`;
-    if (code.startsWith('M5')) return `Samsung Galaxy M5x (SM-${code})`;
-    if (code.startsWith('M3')) return `Samsung Galaxy M3x (SM-${code})`;
-    if (code.startsWith('M2')) return `Samsung Galaxy M2x (SM-${code})`;
-    if (code.startsWith('M1')) return `Samsung Galaxy M1x (SM-${code})`;
-    if (code.startsWith('M0')) return `Samsung Galaxy M0x (SM-${code})`;
-    if (code.startsWith('M')) return `Samsung Galaxy M 시리즈 (SM-${code})`;
-    if (code.startsWith('E')) return `Samsung Galaxy F 시리즈 (SM-${code})`;
-    if (code.startsWith('N9')) return `Samsung Galaxy Note (SM-${code})`;
-    if (code.startsWith('N')) return `Samsung Galaxy Note (SM-${code})`;
-    if (code.startsWith('X9')) return `Samsung Galaxy Tab S Ultra (SM-${code})`;
-    if (code.startsWith('X8')) return `Samsung Galaxy Tab S+ (SM-${code})`;
-    if (code.startsWith('X7')) return `Samsung Galaxy Tab S (SM-${code})`;
-    if (code.startsWith('X')) return `Samsung Galaxy Tab (SM-${code})`;
-    if (code.startsWith('T')) return `Samsung Galaxy Tab (SM-${code})`;
-    if (code.startsWith('P')) return `Samsung Galaxy Tab (SM-${code})`;
-    if (code.startsWith('J')) return `Samsung Galaxy J 시리즈 (SM-${code})`;
-    if (code.startsWith('G')) return `Samsung Galaxy (SM-${code})`;
+    if (code.startsWith('S93')) return 'Samsung Galaxy S25 시리즈';
+    if (code.startsWith('S92')) return 'Samsung Galaxy S24 시리즈';
+    if (code.startsWith('S91')) return 'Samsung Galaxy S23 시리즈';
+    if (code.startsWith('S90')) return 'Samsung Galaxy S22 시리즈';
+    if (code.startsWith('S7')) return 'Samsung Galaxy S FE 시리즈';
+    if (code.startsWith('G99')) return 'Samsung Galaxy S21 시리즈';
+    if (code.startsWith('G98')) return 'Samsung Galaxy S20 시리즈';
+    if (code.startsWith('G97')) return 'Samsung Galaxy S10 시리즈';
+    if (code.startsWith('G96')) return 'Samsung Galaxy S9 시리즈';
+    if (code.startsWith('G95')) return 'Samsung Galaxy S8 시리즈';
+    if (code.startsWith('G93')) return 'Samsung Galaxy S7 시리즈';
+    if (code.startsWith('G92')) return 'Samsung Galaxy S6 시리즈';
+    if (code.startsWith('F9')) return 'Samsung Galaxy Z Fold';
+    if (code.startsWith('F7')) return 'Samsung Galaxy Z Flip';
+    if (code.startsWith('A5')) return 'Samsung Galaxy A5x';
+    if (code.startsWith('A3')) return 'Samsung Galaxy A3x';
+    if (code.startsWith('A2')) return 'Samsung Galaxy A2x';
+    if (code.startsWith('A1')) return 'Samsung Galaxy A1x';
+    if (code.startsWith('A0')) return 'Samsung Galaxy A0x';
+    if (code.startsWith('A7')) return 'Samsung Galaxy A7x';
+    if (code.startsWith('A')) return 'Samsung Galaxy A 시리즈';
+    if (code.startsWith('M5')) return 'Samsung Galaxy M5x';
+    if (code.startsWith('M3')) return 'Samsung Galaxy M3x';
+    if (code.startsWith('M2')) return 'Samsung Galaxy M2x';
+    if (code.startsWith('M1')) return 'Samsung Galaxy M1x';
+    if (code.startsWith('M0')) return 'Samsung Galaxy M0x';
+    if (code.startsWith('M')) return 'Samsung Galaxy M 시리즈';
+    if (code.startsWith('E')) return 'Samsung Galaxy F 시리즈';
+    if (code.startsWith('N9')) return 'Samsung Galaxy Note';
+    if (code.startsWith('N')) return 'Samsung Galaxy Note';
+    if (code.startsWith('X9')) return 'Samsung Galaxy Tab S Ultra';
+    if (code.startsWith('X8')) return 'Samsung Galaxy Tab S+';
+    if (code.startsWith('X7')) return 'Samsung Galaxy Tab S';
+    if (code.startsWith('X')) return 'Samsung Galaxy Tab';
+    if (code.startsWith('T')) return 'Samsung Galaxy Tab';
+    if (code.startsWith('P')) return 'Samsung Galaxy Tab';
+    if (code.startsWith('J')) return 'Samsung Galaxy J 시리즈';
+    if (code.startsWith('G')) return 'Samsung Galaxy';
 
-    return `Samsung (SM-${code})`;
+    return 'Samsung Galaxy';
 }
 
 // 샤오미 모델 코드를 이름으로 변환
