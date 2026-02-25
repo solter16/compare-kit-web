@@ -657,10 +657,10 @@ function getSamsungModelName(code) {
 
         // ===== Galaxy Z Flip 시리즈 =====
         'F751': 'Samsung Galaxy Z Flip7',
-        'F741': 'Samsung Galaxy Z Flip FE',
-        'F731': 'Samsung Galaxy Z Flip6',
-        'F721': 'Samsung Galaxy Z Flip5',
-        'F711': 'Samsung Galaxy Z Flip4',
+        'F741': 'Samsung Galaxy Z Flip6',
+        'F731': 'Samsung Galaxy Z Flip5',
+        'F721': 'Samsung Galaxy Z Flip4',
+        'F711': 'Samsung Galaxy Z Flip3',
         'F707': 'Samsung Galaxy Z Flip 5G',
         'F700': 'Samsung Galaxy Z Flip',
 
@@ -938,6 +938,7 @@ function getSamsungModelName(code) {
     }
 
     // 시리즈 추론 (매칭되지 않은 경우)
+    if (code.startsWith('S94')) return 'Samsung Galaxy S26 시리즈';
     if (code.startsWith('S93')) return 'Samsung Galaxy S25 시리즈';
     if (code.startsWith('S92')) return 'Samsung Galaxy S24 시리즈';
     if (code.startsWith('S91')) return 'Samsung Galaxy S23 시리즈';
@@ -950,17 +951,16 @@ function getSamsungModelName(code) {
     if (code.startsWith('G95')) return 'Samsung Galaxy S8 시리즈';
     if (code.startsWith('G93')) return 'Samsung Galaxy S7 시리즈';
     if (code.startsWith('G92')) return 'Samsung Galaxy S6 시리즈';
-    // F9xx → Fold 세대 추론 (F90x=1, F91x=2, F92x=3, F93x=4, F94x=5, F95x=6, F96x~=7)
+    // F9xx → Fold 세대 추론 (F90x=Fold, F91x=Fold2, F92x=Fold3, F93x=Fold4, F94x=Fold5, F95x=Fold6, F96x+=Fold7)
     if (code.startsWith('F9')) {
-        const digit = parseInt(code[1]);
+        const digit = parseInt(code[2]);
         if (!isNaN(digit) && digit >= 1) return `Samsung Galaxy Z Fold${digit + 1}`;
         return 'Samsung Galaxy Z Fold';
     }
-    // F7xx → Flip 세대 추론 (F70x=1, F71x=4, F72x=5, F73x=6, F74x=FE/7, F75x=7)
+    // F7xx → Flip 세대 추론 (F70x=Flip, F71x=Flip3, F72x=Flip4, F73x=Flip5, F74x=Flip6, F75x=Flip7)
     if (code.startsWith('F7')) {
-        const digit = parseInt(code[1]);
-        if (digit >= 5) return `Samsung Galaxy Z Flip${digit + 2}`;
-        if (digit >= 1) return `Samsung Galaxy Z Flip${digit + 3}`;
+        const digit = parseInt(code[2]);
+        if (!isNaN(digit) && digit >= 1) return `Samsung Galaxy Z Flip${digit + 2}`;
         return 'Samsung Galaxy Z Flip';
     }
     if (code.startsWith('A5')) return 'Samsung Galaxy A5x';
