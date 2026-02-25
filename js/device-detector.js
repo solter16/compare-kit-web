@@ -220,16 +220,32 @@ function detectiPhoneModel() {
     // 매칭 시도
     if (detailedModels[resolutionKey]) {
         const models = detailedModels[resolutionKey];
-        // GPU 칩셋으로 정확히 매칭된 경우 단일 모델 반환
+        // GPU 칩셋으로 정확히 매칭된 경우
         if (chipset && chipset !== 'Apple GPU' && models[chipset]) {
+            const specificModel = models[chipset];
+            // iPhone 13~17은 무조건 선택화면으로 (전체 후보 전송)
+            if (/iPhone\s*1[3-7]/.test(specificModel)) {
+                return {
+                    name: 'iPhone 17 / 16 / 15 / 14 / 13',
+                    resolution: resolutionKey
+                };
+            }
             return {
-                name: models[chipset],
+                name: specificModel,
                 resolution: resolutionKey
             };
         }
         // 칩셋 정보가 없으면 default 반환 (여러 가능성 표시)
+        const defaultName = models['default'] || 'iPhone';
+        // iPhone 13~17 포함 시 전체 후보 전송
+        if (/iPhone\s*1[3-7]/.test(defaultName)) {
+            return {
+                name: 'iPhone 17 / 16 / 15 / 14 / 13',
+                resolution: resolutionKey
+            };
+        }
         return {
-            name: models['default'] || 'iPhone',
+            name: defaultName,
             resolution: resolutionKey
         };
     }
