@@ -277,9 +277,9 @@ function detectAndroidModel(ua) {
 
     // 삼성 갤럭시 (다른 패턴 - Samsung, Galaxy 키워드)
     if (/Samsung|SAMSUNG|Galaxy/i.test(ua)) {
-        const galaxyMatch = ua.match(/Galaxy\s*([^\s;)]+)/i);
+        const galaxyMatch = ua.match(/Galaxy\s+([^;)]+)/i);
         if (galaxyMatch) {
-            return { name: `Samsung Galaxy ${galaxyMatch[1]}`, code: rawModelCode };
+            return { name: `Samsung Galaxy ${galaxyMatch[1].trim()}`, code: rawModelCode };
         }
         return { name: 'Samsung Galaxy', code: rawModelCode };
     }
@@ -569,8 +569,14 @@ function detectAndroidModel(ua) {
 function getSamsungModelName(code) {
     const samsungModels = {
         // ===== Galaxy S 시리즈 =====
+        // Galaxy S26 시리즈 (2026)
+        'S948': 'Samsung Galaxy S26 Ultra',
+        'S946': 'Samsung Galaxy S26+',
+        'S941': 'Samsung Galaxy S26',
+
         // Galaxy S25 시리즈 (2025)
         'S938': 'Samsung Galaxy S25 Ultra',
+        'S937': 'Samsung Galaxy S25 Edge',
         'S936': 'Samsung Galaxy S25+',
         'S931': 'Samsung Galaxy S25',
 
@@ -634,6 +640,9 @@ function getSamsungModelName(code) {
         'G890': 'Samsung Galaxy S6 Active',
 
         // ===== Galaxy Z Fold 시리즈 =====
+        'F978': 'Samsung Galaxy Z Fold SE',
+        'F976': 'Samsung Galaxy Z Fold7',
+        'F966': 'Samsung Galaxy Z Fold7',
         'F968': 'Samsung Galaxy Z Fold6 Special Edition',
         'F956': 'Samsung Galaxy Z Fold6',
         'F946': 'Samsung Galaxy Z Fold5',
@@ -643,7 +652,11 @@ function getSamsungModelName(code) {
         'F907': 'Samsung Galaxy Fold 5G',
         'F900': 'Samsung Galaxy Fold',
 
+        // ===== Galaxy Tri-Fold 시리즈 =====
+        'F888': 'Samsung Galaxy Z Tri-Fold',
+
         // ===== Galaxy Z Flip 시리즈 =====
+        'F751': 'Samsung Galaxy Z Flip7',
         'F741': 'Samsung Galaxy Z Flip FE',
         'F731': 'Samsung Galaxy Z Flip6',
         'F721': 'Samsung Galaxy Z Flip5',
@@ -937,8 +950,19 @@ function getSamsungModelName(code) {
     if (code.startsWith('G95')) return 'Samsung Galaxy S8 시리즈';
     if (code.startsWith('G93')) return 'Samsung Galaxy S7 시리즈';
     if (code.startsWith('G92')) return 'Samsung Galaxy S6 시리즈';
-    if (code.startsWith('F9')) return 'Samsung Galaxy Z Fold';
-    if (code.startsWith('F7')) return 'Samsung Galaxy Z Flip';
+    // F9xx → Fold 세대 추론 (F90x=1, F91x=2, F92x=3, F93x=4, F94x=5, F95x=6, F96x~=7)
+    if (code.startsWith('F9')) {
+        const digit = parseInt(code[1]);
+        if (!isNaN(digit) && digit >= 1) return `Samsung Galaxy Z Fold${digit + 1}`;
+        return 'Samsung Galaxy Z Fold';
+    }
+    // F7xx → Flip 세대 추론 (F70x=1, F71x=4, F72x=5, F73x=6, F74x=FE/7, F75x=7)
+    if (code.startsWith('F7')) {
+        const digit = parseInt(code[1]);
+        if (digit >= 5) return `Samsung Galaxy Z Flip${digit + 2}`;
+        if (digit >= 1) return `Samsung Galaxy Z Flip${digit + 3}`;
+        return 'Samsung Galaxy Z Flip';
+    }
     if (code.startsWith('A5')) return 'Samsung Galaxy A5x';
     if (code.startsWith('A3')) return 'Samsung Galaxy A3x';
     if (code.startsWith('A2')) return 'Samsung Galaxy A2x';
