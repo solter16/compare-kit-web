@@ -2848,7 +2848,12 @@ async function getDeviceInfo() {
                 const hev = await navigator.userAgentData.getHighEntropyValues(['model', 'platformVersion']);
                 const model = hev.model;
                 if (model && model !== '' && model !== 'K') {
-                    const androidResult = detectAndroidModel(`; ${model} Build/`);
+                    // SM- 접두사 없는 삼성 모델 코드 보완 (예: "S936B" → "SM-S936B")
+                    let normalizedModel = model;
+                    if (!model.startsWith('SM-') && /^[SAFGNM]\d{3}/i.test(model)) {
+                        normalizedModel = `SM-${model}`;
+                    }
+                    const androidResult = detectAndroidModel(`; ${normalizedModel} Build/`);
                     result.deviceName = androidResult.name;
                     result.modelCode = androidResult.code || model;
                     return result;
@@ -2858,7 +2863,24 @@ async function getDeviceInfo() {
             }
         }
 
+        // 기존 UA 기반 감지
         const androidResult = detectAndroidModel(ua);
+        // UA 축소로 인식 실패 시 rawModelCode로 삼성 재시도
+        if (androidResult.name === 'Android' && androidResult.code) {
+            let code = androidResult.code;
+            if (!code.startsWith('SM-') && /^[SAFGNM]\d{3}/i.test(code)) {
+                code = `SM-${code}`;
+            }
+            if (code.startsWith('SM-')) {
+                const smMatch = code.match(/SM-([A-Z]\d{3,4}[A-Z]{0,2})/i);
+                if (smMatch) {
+                    const productName = getSamsungModelName(smMatch[1].toUpperCase());
+                    result.deviceName = productName;
+                    result.modelCode = code;
+                    return result;
+                }
+            }
+        }
         result.deviceName = androidResult.name;
         result.modelCode = androidResult.code || '';
         return result;
