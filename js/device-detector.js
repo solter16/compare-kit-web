@@ -587,6 +587,7 @@ function getSamsungModelName(code) {
         // ===== Galaxy S 시리즈 =====
         // Galaxy S26 시리즈 (2026)
         'S948': 'Samsung Galaxy S26 Ultra',
+        'S947': 'Samsung Galaxy S26+',
         'S946': 'Samsung Galaxy S26+',
         'S941': 'Samsung Galaxy S26',
 
